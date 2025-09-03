@@ -70,7 +70,7 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cdn.sanity.io;",
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://core.sanity-cdn.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cdn.sanity.io https://*.api.sanity.io https://*.sanity.io;",
           },
         ],
       },
@@ -80,6 +80,16 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/studio/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://core.sanity-cdn.com https://*.sanity.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.api.sanity.io https://*.sanity.io https://cdn.sanity.io; frame-src 'self' https://*.sanity.io;",
           },
         ],
       },
