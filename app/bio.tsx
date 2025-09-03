@@ -62,13 +62,13 @@ export default function Bio() {
                 </div>
               ))}
 
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <Calendar className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Age</p>
                   <p className="text-sm font-medium">{bioInfo.age}</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-muted-foreground" />
