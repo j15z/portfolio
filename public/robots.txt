@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /studio/
+Disallow: /api/
+Disallow: /blog/
+Disallow: /portfolio/
+
+# Only allow indexing of the home page
+Allow: /$
+
+# Sitemap location
+Sitemap: https://justinblumencranz.com/sitemap.xml
