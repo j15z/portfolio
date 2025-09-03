@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get("featured");
 
     let query;
-    let params: any = {};
+    const params: Record<string, unknown> = {};
 
     if (search) {
       // Simple search query for projects
@@ -47,8 +47,10 @@ export async function GET(request: NextRequest) {
     // Filter by category if specified
     let filteredProjects = projects;
     if (category && category !== "all") {
-      filteredProjects = projects.filter((project: any) =>
-        project.categories?.some((cat: any) => cat.title === category)
+      filteredProjects = projects.filter((project: Record<string, unknown>) =>
+        (project.categories as Array<Record<string, unknown>>)?.some(
+          (cat: Record<string, unknown>) => cat.title === category
+        )
       );
     }
 

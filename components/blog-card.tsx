@@ -117,7 +117,6 @@ export default function BlogCard({ post, className = "" }: BlogCardProps) {
   const imageAlt = post.mainImage?.asset?.altText || post.title;
   const categories = post.categories || [];
   const authorName = post.author?.name || "Unknown Author";
-  const authorImage = post.author?.image?.asset?.url;
 
   return (
     <CardContainer

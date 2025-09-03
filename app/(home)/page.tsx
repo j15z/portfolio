@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Bio from "../bio";
 import Projects from "../projects";
 import Blog from "../blog";

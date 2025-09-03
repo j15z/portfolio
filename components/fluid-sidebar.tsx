@@ -3,7 +3,6 @@
 import {
   Rss,
   GalleryVerticalEnd,
-  PartyPopper,
   User,
   Github,
   Linkedin,
@@ -19,8 +18,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -59,15 +56,7 @@ const blogItems = [
 ];
 
 export function FluidSidebar() {
-  const {
-    state,
-    open,
-    setOpen,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar();
+  const { state } = useSidebar();
 
   const { sidebarState, currentPage } = useNavigation();
   const router = useRouter();
@@ -100,10 +89,6 @@ export function FluidSidebar() {
         });
       }
     }
-  };
-
-  const handleBlogNavigation = () => {
-    router.push("/blog");
   };
 
   return (

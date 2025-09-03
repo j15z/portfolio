@@ -5,10 +5,10 @@ export const revalidate = 3600; // Revalidate every hour
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
 
     if (!slug) {
       return NextResponse.json({ error: "Slug is required" }, { status: 400 });
@@ -22,7 +22,8 @@ export async function GET(
     }
 
     // Fetch related posts
-    const categoryIds = post.categories?.map((cat: any) => cat._id) || [];
+    const categoryIds =
+      post.categories?.map((cat: Record<string, unknown>) => cat._id) || [];
     const relatedPosts = await client.fetch(blogQueries.getRelatedPosts, {
       currentId: post._id,
       categoryIds,

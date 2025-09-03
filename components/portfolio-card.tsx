@@ -103,7 +103,6 @@ export default function PortfolioCard({
     getConsistentFallbackImage(project._id, "portfolio");
   const imageAlt = project.mainImage?.asset?.altText || project.title;
   const technologies = project.technologies || [];
-  const categories = project.categories || [];
 
   return (
     <CardContainer

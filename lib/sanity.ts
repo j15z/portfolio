@@ -13,8 +13,9 @@ export const client = createClient({
 // Image URL builder
 const builder = imageUrlBuilder(client);
 
-export function urlFor(source: any) {
-  return builder.image(source);
+export function urlFor(source: unknown) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return builder.image(source as any);
 }
 
 // GROQ queries for projects

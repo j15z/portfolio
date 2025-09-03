@@ -7,7 +7,7 @@ import PortfolioCard, {
 } from "@/components/portfolio-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+
 import { Search, Filter } from "lucide-react";
 import {
   Pagination,
@@ -34,7 +34,7 @@ interface PortfolioGridProps {
 export default function PortfolioGrid({
   initialProjects = [],
   categories = [],
-  showViewAllButton = false,
+
   maxProjects,
   showSearchAndFilter = true,
   itemsPerPage = 6,

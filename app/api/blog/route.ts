@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const limit = searchParams.get("limit");
 
     let query = blogQueries.getAllPosts;
-    let params: any = {};
+    const params: Record<string, unknown> = {};
 
     // Handle search
     if (search) {

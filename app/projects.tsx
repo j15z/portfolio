@@ -20,7 +20,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
               Featured Projects
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              Here's what I've been working on recently
+              Here&apos;s what I&apos;ve been working on recently
             </p>
           </div>
           <Button variant="outline" size="lg" asChild>
@@ -34,7 +34,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
 
       {/* Projects Grid */}
       <div className="flex flex-wrap gap-4 justify-between">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <div
             key={project._id}
             className="w-full md:w-[calc(50%-0.5rem)] [@media(min-width:1300px)]:w-[calc(33.333%-0.67rem)] self-start"

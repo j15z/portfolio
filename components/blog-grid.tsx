@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import BlogCard, { BlogCardSkeleton, BlogPost } from "@/components/blog-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+
 import { Search, Filter, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import {
@@ -37,7 +37,7 @@ interface BlogGridProps {
 export default function BlogGrid({
   initialPosts = [],
   categories = [],
-  showViewAllButton = false,
+
   maxPosts,
   showSearchAndFilter = true,
   itemsPerPage = 6,

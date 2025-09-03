@@ -10,7 +10,7 @@ import { PortableText } from "@portabletext/react";
 import { getConsistentFallbackImage } from "@/lib/fallback-images";
 
 interface ProjectDetailPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
@@ -19,8 +19,9 @@ export async function generateMetadata({
   let project = null;
 
   try {
+    const { slug } = await params;
     project = await client.fetch(projectQueries.getProjectBySlug, {
-      slug: params.slug,
+      slug,
     });
   } catch (error) {
     console.error("Error fetching project for metadata:", error);
@@ -58,8 +59,9 @@ export default async function ProjectDetailPage({
   let project = null;
 
   try {
+    const { slug } = await params;
     project = await client.fetch(projectQueries.getProjectBySlug, {
-      slug: params.slug,
+      slug,
     });
   } catch (error) {
     console.error("Error fetching project:", error);
@@ -104,17 +106,21 @@ export default async function ProjectDetailPage({
         {/* Project Header */}
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            {categories.map((category: any, index: number) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                style={
-                  category.color ? { backgroundColor: category.color } : {}
-                }
-              >
-                {category.title}
-              </Badge>
-            ))}
+            {categories.map(
+              (category: Record<string, unknown>, index: number) => (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  style={
+                    category.color
+                      ? { backgroundColor: String(category.color) }
+                      : undefined
+                  }
+                >
+                  {String(category.title)}
+                </Badge>
+              )
+            )}
             {project.featured && <Badge variant="outline">Featured</Badge>}
           </div>
 

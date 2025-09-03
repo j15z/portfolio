@@ -6,20 +6,21 @@ import { client, blogQueries, urlFor, formatSanityDate } from "@/lib/sanity";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
-import BlogCard from "@/components/blog-card";
+import BlogCard, { BlogPost } from "@/components/blog-card";
 import { PortableText } from "@portabletext/react";
 import { getConsistentFallbackImage } from "@/lib/fallback-images";
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   try {
+    const { slug } = await params;
     const post = await client.fetch(blogQueries.getPostBySlug, {
-      slug: params.slug,
+      slug,
     });
 
     if (!post) {
@@ -63,8 +64,9 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   try {
-    const [post, relatedPosts] = await Promise.all([
-      client.fetch(blogQueries.getPostBySlug, { slug: params.slug }),
+    const { slug } = await params;
+    const [post] = await Promise.all([
+      client.fetch(blogQueries.getPostBySlug, { slug }),
       client.fetch(blogQueries.getRelatedPosts, {
         currentId: "", // Will be set after we get the post
         categoryIds: [],
@@ -76,7 +78,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
 
     // Get related posts with the actual post data
-    const categoryIds = post.categories?.map((cat: any) => cat._id) || [];
+    const categoryIds =
+      post.categories?.map((cat: Record<string, unknown>) => cat._id) || [];
     const actualRelatedPosts = await client.fetch(blogQueries.getRelatedPosts, {
       currentId: post._id,
       categoryIds,
@@ -104,17 +107,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Categories */}
             {post.categories && post.categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
-                {post.categories.map((category: any, index: number) => (
-                  <Badge
-                    key={index}
-                    variant="secondary"
-                    style={
-                      category.color ? { backgroundColor: category.color } : {}
-                    }
-                  >
-                    {category.title}
-                  </Badge>
-                ))}
+                {post.categories.map(
+                  (category: Record<string, unknown>, index: number) => (
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      style={
+                        category.color
+                          ? { backgroundColor: String(category.color) }
+                          : undefined
+                      }
+                    >
+                      {String(category.title)}
+                    </Badge>
+                  )
+                )}
               </div>
             )}
 
@@ -192,8 +199,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ) : (
               <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 <p className="mb-6">
-                  This blog post doesn't have content yet. Content will be added
-                  soon.
+                  This blog post doesn&apos;t have content yet. Content will be
+                  added soon.
                 </p>
               </div>
             )}
@@ -231,9 +238,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Related Posts
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {actualRelatedPosts.map((relatedPost: any) => (
-                  <BlogCard key={relatedPost._id} post={relatedPost} />
-                ))}
+                {actualRelatedPosts.map(
+                  (relatedPost: Record<string, unknown>) => (
+                    <BlogCard
+                      key={String(relatedPost._id)}
+                      post={relatedPost as unknown as BlogPost}
+                    />
+                  )
+                )}
               </div>
             </section>
           )}
