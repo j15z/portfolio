@@ -121,7 +121,7 @@ export default function BlogGrid({
   ));
 
   return (
-    <div className="w-ful p-8">
+    <div className="w-full p-8">
       {/* Header */}
       <div>
         {customHeader ? (
