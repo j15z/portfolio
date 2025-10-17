@@ -144,7 +144,7 @@ export function MobileNavbar() {
             <Linkedin className="h-4 w-4" />
           </a>
           <a
-            href="https://github.com/blumencranz"
+            href="https://github.com/j15z"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
